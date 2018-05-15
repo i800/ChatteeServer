@@ -2,8 +2,6 @@
 #define _LOGGER_
 #include <QObject>
 
-class QString;
-
 class Logger : public QObject
 {
 private:
@@ -11,10 +9,11 @@ private:
     Logger(const Logger&) = delete;
     Logger operator=(const Logger&) = delete;
 public:
+    static const Logger& getInstance();
     Logger(const QString& folder = "Reports");
     ~Logger();
-    void writeError(const QString&);
-    void writeLog(const QString&);
+    void writeError(const QString&) const;
+    void writeLog(const QString&) const;
 };
 
 #endif

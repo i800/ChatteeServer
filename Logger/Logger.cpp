@@ -1,6 +1,5 @@
 #include "Logger.h"
 #include <QDebug>
-#include <QString>
 #include <QDir>
 #include <QDateTime>
 
@@ -26,7 +25,13 @@ Logger::~Logger()
 #endif
 }
 
-void Logger::writeError(const QString& err)
+const Logger& Logger::getInstance()
+{
+    static const Logger instance;
+    return instance;
+}
+
+void Logger::writeError(const QString& err) const
 {
     QString currentDT = QDateTime::currentDateTime().toString().simplified();
     currentDT.replace(" ", "").replace(":", "-");
@@ -41,7 +46,7 @@ void Logger::writeError(const QString& err)
     file.close();
 }
 
-void Logger::writeLog(const QString& log)
+void Logger::writeLog(const QString& log) const
 {
     QString currentDT = QDateTime::currentDateTime().toString().simplified();
     currentDT.replace(" ", "").replace(":", "-");
