@@ -17,12 +17,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += main.cpp \
     Server.cpp \
-    main.cpp \
-    Server.cpp
+    Database/DB.cpp \
+    Logger/Logger.cpp
 
 HEADERS += \
     Server.h \
-    Server.h
+    Database/DB.h \
+    Logger/Logger.h
 
 DISTFILES += \
     database/maindb.sqlite
