@@ -4,6 +4,10 @@
 #include <QtSql>
 #include "Logger/Logger.h"
 
+class User;
+class Binding;
+class Message;
+
 class DAO : public QObject
 {
     Q_OBJECT
@@ -19,7 +23,9 @@ public:
     static const DAO& getInstance();
     ~DAO();
     void initDB() const;
-    void executeSql(const QString&) const;
+    void addUser(const User&) const;
+    void addBinding(const Binding&) const;
+    void addMessage(const Message&) const;
     // TODO getUsers();
     // TODO getMessages();
     // TODO getBindings();

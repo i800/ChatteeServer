@@ -1,4 +1,7 @@
 #include "DAO.h"
+#include "BusinessLayer/User.h"
+#include "BusinessLayer/Binding.h"
+#include "BusinessLayer/Message.h"
 
 DAO::DAO():
     _maindb(QSqlDatabase::addDatabase("QSQLITE")),
@@ -70,8 +73,8 @@ void DAO::loadDBfilled() const
                  ( `ida` INTEGER NOT NULL, \
                  `idb` INTEGER NOT NULL, \
                  `text` TEXT NOT NULL, \
-                 `from` INTEGER NOT NULL, \
-                 `when` INTEGER NOT NULL, \
+                 `v_from` INTEGER NOT NULL, \
+                 `v_when` INTEGER NOT NULL, \
                  FOREIGN KEY(`idb`) REFERENCES `Users`(`id`) \
                  ON DELETE CASCADE, \
                  PRIMARY KEY(`ida`,`idb`), \
@@ -83,10 +86,32 @@ void DAO::loadDBfilled() const
 #endif
 }
 
-void DAO::executeSql(const QString& query) const
+void DAO::addUser(const User& user) const
 {
-    if (_inited)
-    {
-        _maindb.exec(query);
-    }
+    _maindb.exec(QString("INSERT INTO Users (username, bio, email, pass, hashkey) \
+                         VALUES ('%1', '%2', '%3', '%4', '%5')")
+                         .arg(user.username(),
+                              user.bio() == Q_NULLPTR ? "-" : user.bio(),
+                              user.email(),
+                              user.pass(),
+                              user.hashkey()));
+}
+
+void DAO::addBinding(const Binding& binding) const
+{
+    _maindb.exec(QString("INSERT INTO Bindings (ida, idb) \
+                         VALUES (%1, %2)")
+                         .arg(QString::number(binding.ida()),
+                              QString::number(binding.idb())));
+}
+
+void DAO::addMessage(const Message& message) const
+{
+    _maindb.exec(QString("INSERT INTO Messages (ida, idb, text, v_from, v_when) \
+                         VALUES (%1, %2, '%3', %4, %5)")
+                         .arg(QString::number(message.ida()),
+                              QString::number(message.idb()),
+                              message.text(),
+                              QString::number(message.from()),
+                              QString::number(message.when())));
 }

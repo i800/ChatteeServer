@@ -2,12 +2,12 @@
 #include <QDebug>
 
 Message::Message(const qint64 ida, const qint64 idb, const QString &text,
-                 const qint64 from, const qint64 where):
+                 const qint64 from, const qint64 when):
     _ida(ida),
     _idb(idb),
     _text(text),
     _from(from),
-    _where(where)
+    _when(when)
 {
 #ifndef NDEBUG
     qDebug() << "A message object created";
@@ -19,7 +19,7 @@ Message::Message(const Message& origin):
     _idb(origin._idb),
     _text(origin._text),
     _from(origin._from),
-    _where(origin._where)
+    _when(origin._when)
 {
 #ifndef NDEBUG
     qDebug() << "A message object copied";
@@ -32,7 +32,7 @@ Message& Message::operator=(const Message& origin)
     _idb = origin._idb;
     _text = origin._text;
     _from = origin._from;
-    _where = origin._where;
+    _when = origin._when;
 
 #ifndef NDEBUG
     qDebug() << "A message object reassigned";
