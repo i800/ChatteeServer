@@ -7,7 +7,6 @@ int main(int argc, char *argv[])
     QCoreApplication a(argc, argv);
 //    Server server;
 //    server.start();
-    DAO dao;
-    dao.initDB();
+    DAO::getInstance().initDB();
     return a.exec();
 }

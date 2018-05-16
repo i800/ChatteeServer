@@ -8,17 +8,18 @@ class DAO : public QObject
 {
     Q_OBJECT
 private:
+    DAO();
     DAO(const DAO&) = delete;
     DAO operator=(const DAO&) = delete;
-    void loadDB();
-    void loadDBfilled();
-    QSqlDatabase _maindb;
-    bool _inited;
+    void loadDB() const;
+    void loadDBfilled() const;
+    mutable QSqlDatabase _maindb;
+    mutable bool _inited;
 public:
-    DAO();
+    static const DAO& getInstance();
     ~DAO();
-    void initDB();
-    void executeSql(const QString&);
+    void initDB() const;
+    void executeSql(const QString&) const;
     // TODO getUsers();
     // TODO getMessages();
     // TODO getBindings();

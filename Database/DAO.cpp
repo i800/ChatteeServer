@@ -16,7 +16,13 @@ DAO::~DAO()
 #endif
 }
 
-void DAO::initDB()
+const DAO& DAO::getInstance()
+{
+    static const DAO instance;
+    return instance;
+}
+
+void DAO::initDB() const
 {
     if (!QFile("maindb.sqlite").exists())
     {
@@ -30,7 +36,7 @@ void DAO::initDB()
     _inited = true;
 }
 
-void DAO::loadDB()
+void DAO::loadDB() const
 {
     _maindb.setDatabaseName("maindb.sqlite");
 
@@ -40,7 +46,7 @@ void DAO::loadDB()
     }
 }
 
-void DAO::loadDBfilled()
+void DAO::loadDBfilled() const
 {
     loadDB();
 
@@ -77,7 +83,7 @@ void DAO::loadDBfilled()
 #endif
 }
 
-void DAO::executeSql(const QString& query)
+void DAO::executeSql(const QString& query) const
 {
     if (_inited)
     {
