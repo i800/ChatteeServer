@@ -13,11 +13,11 @@ private:
     QString _pass;
     QString _hashkey;
 public:
-    User();
+    User() {}
     User(const qint64 id, const QString& username, const QString& bio,
          const QString& email, const QString& pass, const QString& hashkey);
     User(const User&);
-    User operator=(const User&);
+    User& operator=(const User&);
     ~User();
 
     inline const qint64 id() { return _id; }

@@ -12,10 +12,11 @@ private:
     qint64 _from;
     qint64 _where;
 public:
-    Message();
+    Message() {}
     Message(const qint64 ida, const qint64 idb, const QString& text,
             const qint64 from, const qint64 where);
     Message(const Message&);
+    Message& operator=(const Message&);
     ~Message();
 
     inline const qint64 ida() { return _ida; }

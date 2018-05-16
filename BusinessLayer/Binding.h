@@ -9,9 +9,10 @@ private:
     qint64 _ida;
     qint64 _idb;
 public:
-    Binding();
+    Binding() {}
     Binding(const qint64 ida, const qint64 idb);
     Binding(const Binding&);
+    Binding& operator=(const Binding&);
     ~Binding();
 
     inline const qint64 ida() { return _ida; }
