@@ -42,13 +42,13 @@ const QPair<QString, QString> PassGenerator
     const QString& salt = getRandomQString();
     QString encryptedPass = QString(QCryptographicHash
       ::hash(QByteArray::fromHex(pass.toUtf8()),
-             QCryptographicHash::Md5).toHex());
+             QCryptographicHash::Sha512).toHex());
     QString encryptedSalt = QString(QCryptographicHash
       ::hash(QByteArray::fromHex(salt.toUtf8()),
-             QCryptographicHash::Md5).toHex());
+             QCryptographicHash::Sha512).toHex());
     QString completedPass = QString(QCryptographicHash
       ::hash(QByteArray::fromHex((encryptedPass + encryptedSalt).toUtf8()),
-             QCryptographicHash::Md5).toHex());
+             QCryptographicHash::Sha512).toHex());
     return QPair<QString, QString>(completedPass, salt);
 }
 
@@ -57,12 +57,12 @@ bool PassGenerator::checkPass(const QPair<QString, QString>& passDesc,
 {
     QString encryptedPass = QString(QCryptographicHash
       ::hash(QByteArray::fromHex(pass.toUtf8()),
-             QCryptographicHash::Md5).toHex());
+             QCryptographicHash::Sha512).toHex());
     QString encryptedSalt = QString(QCryptographicHash
       ::hash(QByteArray::fromHex(passDesc.second.toUtf8()),
-             QCryptographicHash::Md5).toHex());
+             QCryptographicHash::Sha512).toHex());
     QString completedPass = QString(QCryptographicHash
       ::hash(QByteArray::fromHex((encryptedPass + encryptedSalt).toUtf8()),
-             QCryptographicHash::Md5).toHex());
+             QCryptographicHash::Sha512).toHex());
     return completedPass == passDesc.first;
 }
