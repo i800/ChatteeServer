@@ -14,8 +14,8 @@ private:
     QString _hashkey;
 public:
     User();
-    User(const qint64, const QString&, const QString&,
-         const QString&, const QString&, const QString&);
+    User(const qint64 id, const QString& username, const QString& bio,
+         const QString& email, const QString& pass, const QString& hashkey);
     User(const User&);
     User operator=(const User&);
     ~User();
