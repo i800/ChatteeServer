@@ -18,12 +18,18 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += main.cpp \
     Server.cpp \
     Logger/Logger.cpp \
-    Database/DAO.cpp
+    Database/DAO.cpp \
+    BusinessLayer/Binding.cpp \
+    BusinessLayer/Message.cpp \
+    BusinessLayer/User.cpp
 
 HEADERS += \
     Server.h \
     Logger/Logger.h \
-    Database/DAO.h
+    Database/DAO.h \
+    BusinessLayer/Binding.h \
+    BusinessLayer/Message.h \
+    BusinessLayer/User.h
 
 DISTFILES += \
     database/maindb.sqlite
