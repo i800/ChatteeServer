@@ -1,10 +1,9 @@
 #include "DAO.h"
 
 DAO::DAO():
-    _maindb(QSqlDatabase::addDatabase("QSQLITE"))
+    _maindb(QSqlDatabase::addDatabase("QSQLITE")),
+    _inited(false)
 {
-    initDB();
-
 #ifndef NDEBUG
     qDebug() << "DAO created";
 #endif
@@ -27,6 +26,8 @@ void DAO::initDB()
     {
         loadDB();
     }
+
+    _inited = true;
 }
 
 void DAO::loadDB()
@@ -78,5 +79,8 @@ void DAO::loadDBfilled()
 
 void DAO::executeSql(const QString& query)
 {
-    _maindb.exec(query);
+    if (_inited)
+    {
+        _maindb.exec(query);
+    }
 }

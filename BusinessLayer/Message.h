@@ -19,11 +19,11 @@ public:
     Message& operator=(const Message&);
     ~Message();
 
-    inline const qint64 ida() { return _ida; }
-    inline const qint64 idb() { return _idb; }
-    inline const QString text() { return _text; }
-    inline const qint64 from() { return _from; }
-    inline const qint64 where() { return _where; }
+    inline const qint64 ida() const { return _ida; }
+    inline const qint64 idb() const { return _idb; }
+    inline const QString text() const { return _text; }
+    inline const qint64 from() const { return _from; }
+    inline const qint64 where() const { return _where; }
 
     inline qint64& ida() { return _ida; }
     inline qint64& idb() { return _idb; }

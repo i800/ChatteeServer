@@ -8,5 +8,6 @@ int main(int argc, char *argv[])
 //    Server server;
 //    server.start();
     DAO dao;
+    dao.initDB();
     return a.exec();
 }

@@ -20,12 +20,12 @@ public:
     User& operator=(const User&);
     ~User();
 
-    inline const qint64 id() { return _id; }
-    inline const QString username() { return _username; }
-    inline const QString bio() { return _bio; }
-    inline const QString email() { return _email; }
-    inline const QString pass() { return _pass; }
-    inline const QString hashkey() { return _hashkey; }
+    inline const qint64 id() const { return _id; }
+    inline const QString username() const { return _username; }
+    inline const QString bio() const { return _bio; }
+    inline const QString email() const { return _email; }
+    inline const QString pass() const { return _pass; }
+    inline const QString hashkey() const { return _hashkey; }
 
     inline qint64& id() { return _id; }
     inline QString& username() { return _username; }
