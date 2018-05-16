@@ -21,7 +21,8 @@ SOURCES += main.cpp \
     Database/DAO.cpp \
     BusinessLayer/Binding.cpp \
     BusinessLayer/Message.cpp \
-    BusinessLayer/User.cpp
+    BusinessLayer/User.cpp \
+    Encryption/PassGenerator.cpp
 
 HEADERS += \
     Server.h \
@@ -29,7 +30,8 @@ HEADERS += \
     Database/DAO.h \
     BusinessLayer/Binding.h \
     BusinessLayer/Message.h \
-    BusinessLayer/User.h
+    BusinessLayer/User.h \
+    Encryption/PassGenerator.h
 
 DISTFILES += \
     database/maindb.sqlite
