@@ -24,7 +24,9 @@ SOURCES += main.cpp \
     BusinessLayer/User.cpp \
     Encryption/PassGenerator.cpp \
     Core/UserDescriptor.cpp \
-    Core/Core.cpp
+    Core/Core.cpp \
+    Protocol/Packet.cpp \
+    Protocol/PacketHandler.cpp
     #Core/UserAgent.cpp
 
 HEADERS += \
@@ -36,7 +38,9 @@ HEADERS += \
     BusinessLayer/User.h \
     Encryption/PassGenerator.h \
     Core/UserDescriptor.h \
-    Core/Core.h
+    Core/Core.h \
+    Protocol/Packet.h \
+    Protocol/PacketHandler.h
     #Core/UserAgent.h
 
 DISTFILES += \

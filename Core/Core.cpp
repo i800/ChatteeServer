@@ -57,7 +57,7 @@ void Core::processMessage()
 {
     QTcpSocket* pSender = qobject_cast<QTcpSocket*>(sender());
     QByteArray message = pSender->readAll();
-    qDebug(message);
+    qDebug() << message.count();
 }
 
 void Core::onConnectionClosed()
@@ -67,6 +67,9 @@ void Core::onConnectionClosed()
     {
         // TODO remove client
     }
+#ifndef NDEBUG
+    qDebug() << "A client disconnected";
+#endif
 }
 
 const quint32 generateUniqueSUID(const QList<quint32>& presentSUIDs)
