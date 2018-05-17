@@ -24,14 +24,14 @@ public:
     inline const QString& username() const { return _username; }
     inline const QString& bio() const { return _bio; }
     inline const QString& email() const { return _email; }
-    inline const QString& pass() const { _pass; }
+    inline const QString& pass() const { return _pass; }
 
     inline qint32& id() { return _id; }
     inline quint64& userid() { return _userid; }
     inline QString& username() { return _username; }
     inline QString& bio() { return _bio; }
     inline QString& email() { return _email; }
-    inline QString& pass() { _pass; }
+    inline QString& pass() { return _pass; }
 };
 
 #endif

@@ -5,11 +5,11 @@
 #include "BusinessLayer/User.h"
 #include "BusinessLayer/Binding.h"
 #include "BusinessLayer/Message.h"
+#include "Protocol/Packet.h"
+#include "Protocol/Packets/UserRegPacket.h"
 
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
-    Core core;
-    core.start();
     return a.exec();
 }
