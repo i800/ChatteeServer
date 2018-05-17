@@ -1,5 +1,8 @@
 #include "Core.h"
 #include "UserDescriptor.h"
+#include "Encryption/PassGenerator.h"
+#include "BusinessLayer/User.h"
+#include "Protocol/Packets/UserRegPacket.h"
 #include <QTcpServer>
 #include <QTcpSocket>
 #include <QDebug>
@@ -22,6 +25,17 @@ Core::~Core()
     delete _tcpServer;
     QList<UserDescriptor*> toDelete = _clients.values();
     qDeleteAll(toDelete.begin(), toDelete.end());
+}
+
+void Core::registerNewUser(const UserRegPacket& packet)
+{
+    QPair<QString, QString> passDesc =
+            PassGenerator::getInstance().getEncryptedPass(packet.pass());
+
+    User user(0, packet.username(), packet.bio(), packet.email(),
+              passDesc.first, passDesc.second);
+
+    _dao.addUser(user);
 }
 
 void Core::start(const quint16 port)
@@ -58,8 +72,14 @@ void Core::onNewConnection()
 void Core::processMessage()
 {
     QTcpSocket* pSender = qobject_cast<QTcpSocket*>(sender());
-    QByteArray message = pSender->readAll();
-    qDebug() << message.count();
+    QByteArray data = pSender->readAll();
+    switch (_packetHandler.getPacketMeta(data))
+    {
+    case PacketHandler::USER_REG:
+        UserRegPacket packet = _packetHandler.makeUserRegPacket(data);
+        registerNewUser(packet);
+        break;
+    }
 }
 
 void Core::onConnectionClosed()

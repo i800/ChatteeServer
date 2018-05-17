@@ -3,9 +3,11 @@
 #include <QObject>
 #include <QMap>
 #include "Database/DAO.h"
+#include "Protocol/PacketHandler.h"
 
 class QTcpServer;
 class UserDescriptor;
+class UserRegPacket;
 
 class Core : public QObject
 {
@@ -14,8 +16,10 @@ private:
     QTcpServer* _tcpServer;
     QMap<quint32, UserDescriptor*> _clients;
     DAO _dao;
+    PacketHandler _packetHandler;
     Core(const Core&) = delete;
     Core& operator=(const Core&) = delete;
+    void registerNewUser(const UserRegPacket&);
 public:
     Core();
     ~Core();
