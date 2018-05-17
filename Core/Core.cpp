@@ -27,7 +27,7 @@ Core::~Core()
     qDeleteAll(toDelete.begin(), toDelete.end());
 }
 
-void Core::registerNewUser(const UserRegPacket& packet)
+bool Core::registerNewUser(const UserRegPacket& packet)
 {
     QPair<QString, QString> passDesc =
             PassGenerator::getInstance().getEncryptedPass(packet.pass());
@@ -35,7 +35,7 @@ void Core::registerNewUser(const UserRegPacket& packet)
     User user(0, packet.username(), packet.bio(), packet.email(),
               passDesc.first, passDesc.second);
 
-    _dao.addUser(user);
+    return _dao.addUser(user);
 }
 
 void Core::start(const quint16 port)
@@ -77,7 +77,7 @@ void Core::processMessage()
     {
     case PacketHandler::USER_REG:
         UserRegPacket packet = _packetHandler.makeUserRegPacket(data);
-        registerNewUser(packet);
+        qDebug() << registerNewUser(packet);
         break;
     }
 }

@@ -80,10 +80,11 @@ void DAO::loadDBfilled() const
 #endif
 }
 
-void DAO::addUser(const User& user) const
+bool DAO::addUser(const User& user) const
 {
-    _maindb.exec(QString("INSERT INTO Users (username, bio, email, pass, hashkey) \
-                         VALUES ('%1', '%2', '%3', '%4', '%5')")
+    return QSqlQuery(_maindb)
+            .exec(QString("INSERT INTO Users (username, bio, email, pass, hashkey) \
+                           VALUES ('%1', '%2', '%3', '%4', '%5')")
                          .arg(user.username(),
                               user.bio() == Q_NULLPTR ? "-" : user.bio(),
                               user.email(),
@@ -91,18 +92,20 @@ void DAO::addUser(const User& user) const
                               user.hashkey()));
 }
 
-void DAO::addBinding(const Binding& binding) const
+bool DAO::addBinding(const Binding& binding) const
 {
-    _maindb.exec(QString("INSERT INTO Bindings (ida, idb) \
-                         VALUES (%1, %2)")
+    return QSqlQuery(_maindb)
+            .exec(QString("INSERT INTO Bindings (ida, idb) \
+                           VALUES (%1, %2)")
                          .arg(QString::number(binding.ida()),
                               QString::number(binding.idb())));
 }
 
-void DAO::addMessage(const Message& message) const
+bool DAO::addMessage(const Message& message) const
 {
-    _maindb.exec(QString("INSERT INTO Messages (ida, idb, text, v_from, v_when) \
-                         VALUES (%1, %2, '%3', %4, %5)")
+    return QSqlQuery(_maindb)
+            .exec(QString("INSERT INTO Messages (ida, idb, text, v_from, v_when) \
+                           VALUES (%1, %2, '%3', %4, %5)")
                          .arg(QString::number(message.ida()),
                               QString::number(message.idb()),
                               message.text(),

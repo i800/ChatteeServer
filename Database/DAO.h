@@ -22,9 +22,9 @@ public:
     DAO();
     ~DAO();
     void initDB() const;
-    void addUser(const User&) const;
-    void addBinding(const Binding&) const;
-    void addMessage(const Message&) const;
+    bool addUser(const User&) const;
+    bool addBinding(const Binding&) const;
+    bool addMessage(const Message&) const;
     // TODO getUsers();
     // TODO getMessages();
     // TODO getBindings();

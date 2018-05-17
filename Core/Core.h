@@ -19,7 +19,7 @@ private:
     PacketHandler _packetHandler;
     Core(const Core&) = delete;
     Core& operator=(const Core&) = delete;
-    void registerNewUser(const UserRegPacket&);
+    bool registerNewUser(const UserRegPacket&);
 public:
     Core();
     ~Core();
