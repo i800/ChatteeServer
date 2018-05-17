@@ -19,12 +19,6 @@ DAO::~DAO()
 #endif
 }
 
-const DAO& DAO::getInstance()
-{
-    static const DAO instance;
-    return instance;
-}
-
 void DAO::initDB() const
 {
     if (!QFile("maindb.sqlite").exists())

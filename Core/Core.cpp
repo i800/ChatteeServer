@@ -26,6 +26,8 @@ Core::~Core()
 
 void Core::start(const quint16 port)
 {
+    _dao.initDB();
+
     if (!_tcpServer->listen(QHostAddress::Any, port))
     {
         throw _tcpServer->serverError();

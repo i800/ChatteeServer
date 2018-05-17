@@ -2,6 +2,7 @@
 #define _CORE_
 #include <QObject>
 #include <QMap>
+#include "Database/DAO.h"
 
 class QTcpServer;
 class UserDescriptor;
@@ -12,6 +13,7 @@ class Core : public QObject
 private:
     QTcpServer* _tcpServer;
     QMap<quint32, UserDescriptor*> _clients;
+    DAO _dao;
     Core(const Core&) = delete;
     Core& operator=(const Core&) = delete;
 public:

@@ -12,7 +12,6 @@ class DAO : public QObject
 {
     Q_OBJECT
 private:
-    DAO();
     DAO(const DAO&) = delete;
     DAO operator=(const DAO&) = delete;
     void loadDB() const;
@@ -20,7 +19,7 @@ private:
     mutable QSqlDatabase _maindb;
     mutable bool _inited;
 public:
-    static const DAO& getInstance();
+    DAO();
     ~DAO();
     void initDB() const;
     void addUser(const User&) const;
