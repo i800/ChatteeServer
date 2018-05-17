@@ -20,8 +20,8 @@ public:
     void clearMemory();
     void clearMemory() const;
 
-    inline const QTcpSocket* const tcpSocket() const { return _tcpSocket; }
-    inline const User* const user() const { return _userData; }
+    inline QTcpSocket* tcpSocket() const { return _tcpSocket; }
+    inline User* user() const { return _userData; }
 
     inline QTcpSocket* tcpSocket() { return _tcpSocket; }
     inline User* user() { return _userData; }

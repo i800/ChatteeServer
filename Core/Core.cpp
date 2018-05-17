@@ -74,7 +74,7 @@ void Core::onConnectionClosed()
 #endif
 }
 
-const quint32 generateUniqueSUID(const QList<quint32>& presentSUIDs)
+quint32 generateUniqueSUID(const QList<quint32>& presentSUIDs)
 {
     qsrand(static_cast<quint64>(QTime::currentTime().msecsSinceStartOfDay()));
     quint32 rSUID(0);

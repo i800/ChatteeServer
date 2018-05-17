@@ -7,12 +7,10 @@
 #include "BusinessLayer/Message.h"
 #include "Protocol/Packet.h"
 #include "Protocol/Packets/UserRegPacket.h"
+#include "Protocol/PacketHandler.h"
 
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
-    Core core;
-    core.start();
-    DAO dao;
     return a.exec();
 }

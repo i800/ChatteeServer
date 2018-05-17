@@ -12,6 +12,7 @@ UserDescriptor::UserDescriptor(QTcpSocket *tcpSocket, User *userData):
 }
 
 UserDescriptor::UserDescriptor(const UserDescriptor& origin):
+    QObject(parent()),
     _tcpSocket(origin._tcpSocket),
     _userData(origin._userData)
 {

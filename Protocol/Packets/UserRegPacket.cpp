@@ -1,18 +1,22 @@
 #include "UserRegPacket.h"
+#include <QBuffer>
 #include <QDebug>
 
-UserRegPacket::UserRegPacket(const qint32 id, const quint64 userid,
-                             const QString &username, const QString &bio,
-                             const QString &email, const QString &pass):
-    _id(id),
-    _userid(userid),
-    _username(username),
-    _bio(bio),
-    _email(email),
-    _pass(pass)
+UserRegPacket::UserRegPacket()
 {
 #ifndef NDEBUG
     qDebug() << "A UserRegPacket instance created";
+#endif
+}
+
+UserRegPacket::UserRegPacket(const UserRegPacket& origin):
+    _username(origin._username),
+    _bio(origin._bio),
+    _email(origin._email),
+    _pass(origin._pass)
+{
+#ifndef NDEBUG
+    qDebug() << "A UserRegPacket instance copied";
 #endif
 }
 
@@ -23,22 +27,33 @@ UserRegPacket::~UserRegPacket()
 #endif
 }
 
-const QByteArray UserRegPacket::specificDump() const
+QByteArray UserRegPacket::specificDump() const
 {
     QByteArray data;
     const char* username(_username.toStdString().c_str());
     const char* bio(_bio.toStdString().c_str());
     const char* email(_email.toStdString().c_str());
     const char* pass(_pass.toStdString().c_str());
-    data.append((char*)&_userid, sizeof(_userid));
-    data.append(username, sizeof(username));
-    data.append(bio, sizeof(bio));
-    data.append(email, sizeof(email));
-    data.append(pass, sizeof(pass));
+    data.append(username, strlen(username) + 1);
+    data.append(bio, strlen(bio) + 1);
+    data.append(email, strlen(email) + 1);
+    data.append(pass, strlen(pass) + 1);
     return data;
 }
 
-const qint32 UserRegPacket::specificGetID() const
+void UserRegPacket::specificLoad(QBuffer& buffer)
 {
-    return qint32(1);
+    QByteArray strings = buffer.readAll();
+    _username = QString(strings.data());
+    strings.remove(0, _username.size() + 1);
+    _bio = QString(strings.data());
+    strings.remove(0, _bio.size() + 1);
+    _email = QString(strings.data());
+    strings.remove(0, _email.size() + 1);
+    _pass = QString(strings.data());
+}
+
+char UserRegPacket::specificGetID() const
+{
+    return 0;
 }

@@ -15,8 +15,8 @@ public:
     Binding& operator=(const Binding&);
     ~Binding();
 
-    inline const qint64 ida() const { return _ida; }
-    inline const qint64 idb() const { return _idb; }
+    inline qint64 ida() const { return _ida; }
+    inline qint64 idb() const { return _idb; }
     inline qint64& ida() { return _ida; }
     inline qint64& idb() { return _idb; }
 };

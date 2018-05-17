@@ -1,17 +1,22 @@
 #ifndef _PACKET_
 #define _PACKET_
 #include <QObject>
+#include <QDebug>
+
+class QBuffer;
 
 class Packet : public QObject
 {
     Q_OBJECT
 private:
-    virtual const QByteArray specificDump() const = 0;
-    virtual const qint32 specificGetID() const = 0;
+    virtual QByteArray specificDump() const {qDebug() << "f"; return QByteArray();}
+    virtual void specificLoad(QBuffer&) = 0;
+    virtual char specificGetID() const = 0;
 public:
     virtual ~Packet() {}
     // NVI
-    const QByteArray dump() const;
+    QByteArray dump() const;
+    void load(QByteArray&);
 };
 
 #endif

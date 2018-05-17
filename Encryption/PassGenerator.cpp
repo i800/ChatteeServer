@@ -6,14 +6,14 @@
 PassGenerator::PassGenerator()
 {
 #ifndef NDEBUG
-    qDebug() << "PassGenerator created";
+    qDebug() << "Password generator created";
 #endif
 }
 
 PassGenerator::~PassGenerator()
 {
 #ifndef NDEBUG
-    qDebug() << "PassGenerator deleted";
+    qDebug() << "Password generator deleted";
 #endif
 }
 

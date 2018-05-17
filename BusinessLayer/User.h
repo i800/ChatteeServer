@@ -20,7 +20,7 @@ public:
     User& operator=(const User&);
     ~User();
 
-    inline const qint64 id() const { return _id; }
+    inline qint64 id() const { return _id; }
     inline const QString username() const { return _username; }
     inline const QString bio() const { return _bio; }
     inline const QString email() const { return _email; }

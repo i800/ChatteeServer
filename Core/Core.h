@@ -28,6 +28,6 @@ private slots:
     void onConnectionClosed();
 };
 
-const quint32 generateUniqueSUID(const QList<quint32>&);
+quint32 generateUniqueSUID(const QList<quint32>&);
 
 #endif

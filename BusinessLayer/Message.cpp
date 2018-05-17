@@ -15,6 +15,7 @@ Message::Message(const qint64 ida, const qint64 idb, const QString &text,
 }
 
 Message::Message(const Message& origin):
+    QObject(parent()),
     _ida(origin._ida),
     _idb(origin._idb),
     _text(origin._text),

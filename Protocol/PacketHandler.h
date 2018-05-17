@@ -1,6 +1,6 @@
 #ifndef _PACKET_HANDLER_
 #define _PACKET_HANDLER_
-#include "Protocol/Packet.h"
+#include "Protocol/Packets/UserRegPacket.h"
 
 class PacketHandler : public QObject
 {
@@ -12,17 +12,18 @@ public:
     // Packet id equals to index in the enum.
     enum PacketMeta
     {
-        USER_REG = 1,
-        USER_LOG = 2,
-        USER_OUT = 3,
-        USER_ADD_CHAT = 4,
-        USER_ADD_MESS = 5
+        USER_REG,
+        USER_LOG,
+        USER_OUT,
+        USER_ADD_CHAT,
+        USER_ADD_MESS
     };
     PacketHandler();
     ~PacketHandler();
-    const bool isValidPacket(const QByteArray&);
-    const Packet* makePacket(const QByteArray&);
-    const PacketMeta& getPacketMeta(const ByteArray&);
+    bool isValidPacket(const QByteArray&);
+    UserRegPacket makeUserRegPacket(QByteArray&);
+    PacketMeta getPacketMeta(const QByteArray&);
+    quint16 getPacketSize(const QByteArray&);
 };
 
 #endif

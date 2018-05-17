@@ -11,6 +11,7 @@ Binding::Binding(const qint64 ida, const qint64 idb):
 }
 
 Binding::Binding(const Binding& origin):
+    QObject(parent()),
     _ida(origin._ida),
     _idb(origin._idb)
 {
