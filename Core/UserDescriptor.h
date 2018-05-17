@@ -14,11 +14,12 @@ private:
     User* _userData;
 public:
     UserDescriptor();
-    UserDescriptor(const quint64* suid = 0, const QTcpSocket* tcpSocket = 0,
-                   const User* userData = 0);
+    UserDescriptor(quint64* suid = 0, QTcpSocket* tcpSocket = 0, User* userData = 0);
     UserDescriptor(const UserDescriptor&);
     UserDescriptor& operator=(const UserDescriptor&);
     ~UserDescriptor();
+    void clearMemory();
+    void clearMemory() const;
 
     inline const quint64* const suid() const { return _suid; }
     inline const QTcpSocket* const tcpSocket() const { return _tcpSocket; }
