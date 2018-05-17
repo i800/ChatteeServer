@@ -1,6 +1,7 @@
 #include "PassGenerator.h"
 #include <QCryptographicHash>
 #include <QDebug>
+#include <QTime>
 
 PassGenerator::PassGenerator()
 {
@@ -25,6 +26,7 @@ const PassGenerator& PassGenerator::getInstance()
 const QString PassGenerator::getRandomQString() const
 {
     const QString domain("abcdefghijklmnopqrstuvwxyz");
+    qsrand(static_cast<quint64>(QTime::currentTime().msecsSinceStartOfDay()));
 
     QString randomQString;
     for(int i(0); i < 32; ++i)

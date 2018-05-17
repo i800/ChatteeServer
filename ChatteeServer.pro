@@ -1,5 +1,5 @@
 QT -= gui
-QT += network sql
+QT += core network sql
 
 CONFIG += c++11 console
 CONFIG -= app_bundle
@@ -23,8 +23,8 @@ SOURCES += main.cpp \
     BusinessLayer/Message.cpp \
     BusinessLayer/User.cpp \
     Encryption/PassGenerator.cpp \
-    Core/UserDescriptor.cpp
-    #Core/Core.cpp \
+    Core/UserDescriptor.cpp \
+    Core/Core.cpp
     #Core/UserAgent.cpp
 
 HEADERS += \
@@ -35,8 +35,8 @@ HEADERS += \
     BusinessLayer/Message.h \
     BusinessLayer/User.h \
     Encryption/PassGenerator.h \
-    Core/UserDescriptor.h
-    #Core/Core.h \
+    Core/UserDescriptor.h \
+    Core/Core.h
     #Core/UserAgent.h
 
 DISTFILES += \

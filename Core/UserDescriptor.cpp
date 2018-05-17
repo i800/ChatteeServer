@@ -2,8 +2,7 @@
 #include <QTcpSocket>
 #include "BusinessLayer/User.h"
 
-UserDescriptor::UserDescriptor(quint64 *suid, QTcpSocket *tcpSocket, User *userData):
-    _suid(suid),
+UserDescriptor::UserDescriptor(QTcpSocket *tcpSocket, User *userData):
     _tcpSocket(tcpSocket),
     _userData(userData)
 {
@@ -13,7 +12,6 @@ UserDescriptor::UserDescriptor(quint64 *suid, QTcpSocket *tcpSocket, User *userD
 }
 
 UserDescriptor::UserDescriptor(const UserDescriptor& origin):
-    _suid(origin._suid),
     _tcpSocket(origin._tcpSocket),
     _userData(origin._userData)
 {
@@ -26,7 +24,6 @@ UserDescriptor& UserDescriptor::operator=(const UserDescriptor& origin)
 {
     clearMemory();
 
-    _suid = origin._suid;
     _tcpSocket = origin._tcpSocket;
     _userData = origin._userData;
 
@@ -48,14 +45,12 @@ UserDescriptor::~UserDescriptor()
 
 void UserDescriptor::clearMemory()
 {
-    delete _suid;
     delete _tcpSocket;
     delete _userData;
 }
 
 void UserDescriptor::clearMemory() const
 {
-    delete _suid;
     delete _tcpSocket;
     delete _userData;
 }
