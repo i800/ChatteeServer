@@ -77,7 +77,7 @@ void Core::processMessage()
     {
     case PacketHandler::USER_REG:
         UserRegPacket packet = _packetHandler.makeUserRegPacket(data);
-        qDebug() << registerNewUser(packet);
+        pSender->write(registerNewUser(packet) ? "ok" : "error");
         break;
     }
 }

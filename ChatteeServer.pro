@@ -27,7 +27,8 @@ SOURCES += main.cpp \
     Core/Core.cpp \
     Protocol/Packet.cpp \
     Protocol/PacketHandler.cpp \
-    Protocol/Packets/UserRegPacket.cpp
+    Protocol/Packets/UserRegPacket.cpp \
+    Protocol/Packets/UserAddMess.cpp
     #Core/UserAgent.cpp
 
 HEADERS += \
@@ -46,4 +47,5 @@ HEADERS += \
     #Core/UserAgent.h
 
 DISTFILES += \
-    database/maindb.sqlite
+    database/maindb.sqlite \
+    Protocol/Packets/UserAddMessPacket
