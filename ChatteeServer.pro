@@ -22,7 +22,10 @@ SOURCES += main.cpp \
     BusinessLayer/Binding.cpp \
     BusinessLayer/Message.cpp \
     BusinessLayer/User.cpp \
-    Encryption/PassGenerator.cpp
+    Encryption/PassGenerator.cpp \
+    Core/UserDescriptor.cpp
+    #Core/Core.cpp \
+    #Core/UserAgent.cpp
 
 HEADERS += \
     Server.h \
@@ -31,7 +34,10 @@ HEADERS += \
     BusinessLayer/Binding.h \
     BusinessLayer/Message.h \
     BusinessLayer/User.h \
-    Encryption/PassGenerator.h
+    Encryption/PassGenerator.h \
+    Core/UserDescriptor.h
+    #Core/Core.h \
+    #Core/UserAgent.h
 
 DISTFILES += \
     database/maindb.sqlite
