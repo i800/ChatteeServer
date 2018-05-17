@@ -41,7 +41,7 @@ bool Core::registerNewUser(const UserRegPacket& packet)
 bool Core::sendMessage(const UserAddMessPacket& packet)
 {
     // TODO: change this
-    quint32 ida(3);
+    quint32 ida(1);
     qint32 idb = _dao.getUserByUsername(packet.to()).id();
     Message message(ida, idb, packet.text(), ida, QDateTime::currentSecsSinceEpoch());
     return _dao.addMessage(message);

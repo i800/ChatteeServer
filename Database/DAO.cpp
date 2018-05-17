@@ -72,7 +72,7 @@ void DAO::loadDBfilled() const
                  `v_when` INTEGER NOT NULL, \
                  FOREIGN KEY(`idb`) REFERENCES `Users`(`id`) \
                  ON DELETE CASCADE, \
-                 PRIMARY KEY(`ida`,`idb`), \
+                 PRIMARY KEY(`ida`,`idb`,`v_when`), \
                  FOREIGN KEY(`ida`) REFERENCES `Users`(`id`) \
                  ON DELETE CASCADE )");
 

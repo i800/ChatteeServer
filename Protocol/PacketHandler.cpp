@@ -38,7 +38,6 @@ UserAddMessPacket PacketHandler::makeUserAddMessPacket(QByteArray& data)
 
 PacketHandler::PacketMeta PacketHandler::getPacketMeta(const QByteArray& arr)
 {
-    qDebug() << "arr:" << (PacketMeta)(*arr.data());
     return (PacketMeta)(*arr.data());
 }
 
