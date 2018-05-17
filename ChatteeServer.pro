@@ -26,7 +26,8 @@ SOURCES += main.cpp \
     Core/UserDescriptor.cpp \
     Core/Core.cpp \
     Protocol/Packet.cpp \
-    Protocol/PacketHandler.cpp
+    Protocol/PacketHandler.cpp \
+    Protocol/Packets/UserRegPacket.cpp
     #Core/UserAgent.cpp
 
 HEADERS += \
@@ -40,7 +41,8 @@ HEADERS += \
     Core/UserDescriptor.h \
     Core/Core.h \
     Protocol/Packet.h \
-    Protocol/PacketHandler.h
+    Protocol/PacketHandler.h \
+    Protocol/Packets/UserRegPacket.h
     #Core/UserAgent.h
 
 DISTFILES += \

@@ -3,9 +3,9 @@
 // Non-virtual customizable method.
 const QByteArray Packet::dump() const
 {
-    QByteArray data = specificDump();
-    qint32 packid = specificGetID();
-    qint32 length = data.length();
+    const QByteArray data = specificDump();
+    const qint32 packid = specificGetID();
+    const qint32 length = data.length();
 
     QByteArray toDump;
     toDump.append((char*)&packid, sizeof(qint32));

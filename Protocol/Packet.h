@@ -6,8 +6,8 @@ class Packet : public QObject
 {
     Q_OBJECT
 private:
-    virtual QByteArray specificDump() const = 0;
-    virtual quint32 specificGetID() const = 0;
+    virtual const QByteArray specificDump() const = 0;
+    virtual const quint32 specificGetID() const = 0;
 public:
     virtual ~Packet() {}
     // NVI
