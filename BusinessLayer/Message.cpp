@@ -1,8 +1,8 @@
 #include "Message.h"
 #include <QDebug>
 
-Message::Message(const qint64 ida, const qint64 idb, const QString &text,
-                 const qint64 from, const qint64 when):
+Message::Message(const qint32 ida, const qint32 idb, const QString &text,
+                 const qint32 from, const qint64 when):
     _ida(ida),
     _idb(idb),
     _text(text),

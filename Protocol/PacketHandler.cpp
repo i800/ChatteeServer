@@ -29,8 +29,16 @@ UserRegPacket PacketHandler::makeUserRegPacket(QByteArray& data)
     return packet;
 }
 
+UserAddMessPacket PacketHandler::makeUserAddMessPacket(QByteArray& data)
+{
+    UserAddMessPacket packet;
+    packet.load(data);
+    return packet;
+}
+
 PacketHandler::PacketMeta PacketHandler::getPacketMeta(const QByteArray& arr)
 {
+    qDebug() << "arr:" << (PacketMeta)(*arr.data());
     return (PacketMeta)(*arr.data());
 }
 

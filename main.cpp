@@ -7,6 +7,7 @@
 #include "BusinessLayer/Message.h"
 #include "Protocol/Packet.h"
 #include "Protocol/Packets/UserRegPacket.h"
+#include "Protocol/Packets/UserAddMessPacket.h"
 #include "Protocol/PacketHandler.h"
 
 int main(int argc, char *argv[])
@@ -14,6 +15,5 @@ int main(int argc, char *argv[])
     QCoreApplication a(argc, argv);
     Core core;
     core.start();
-
     return a.exec();
 }

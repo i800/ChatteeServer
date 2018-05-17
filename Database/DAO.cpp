@@ -1,3 +1,4 @@
+#include <cassert>
 #include "DAO.h"
 #include "BusinessLayer/User.h"
 #include "BusinessLayer/Binding.h"
@@ -111,4 +112,17 @@ bool DAO::addMessage(const Message& message) const
                               message.text(),
                               QString::number(message.from()),
                               QString::number(message.when())));
+}
+
+User DAO::getUserByUsername(const QString& username) const
+{
+    QSqlQuery result = _maindb.exec(QString("SELECT * \
+                                             FROM Users \
+                                             WHERE username = '%1'")
+                              .arg(username));
+    assert(result.next());
+    return User(result.value(0).toString().toUInt(),
+                result.value(1).toString(), result.value(2).toString(),
+                result.value(3).toString(), result.value(4).toString(),
+                result.value(5).toString());
 }

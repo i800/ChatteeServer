@@ -2,7 +2,7 @@
 #include "UserDescriptor.h"
 #include "Encryption/PassGenerator.h"
 #include "BusinessLayer/User.h"
-#include "Protocol/Packets/UserRegPacket.h"
+#include "BusinessLayer/Message.h"
 #include <QTcpServer>
 #include <QTcpSocket>
 #include <QDebug>
@@ -36,6 +36,15 @@ bool Core::registerNewUser(const UserRegPacket& packet)
               passDesc.first, passDesc.second);
 
     return _dao.addUser(user);
+}
+
+bool Core::sendMessage(const UserAddMessPacket& packet)
+{
+    // TODO: change this
+    quint32 ida(3);
+    qint32 idb = _dao.getUserByUsername(packet.to()).id();
+    Message message(ida, idb, packet.text(), ida, QDateTime::currentSecsSinceEpoch());
+    return _dao.addMessage(message);
 }
 
 void Core::start(const quint16 port)
@@ -73,12 +82,21 @@ void Core::processMessage()
 {
     QTcpSocket* pSender = qobject_cast<QTcpSocket*>(sender());
     QByteArray data = pSender->readAll();
+    qDebug() << _packetHandler.getPacketMeta(data);
     switch (_packetHandler.getPacketMeta(data))
     {
     case PacketHandler::USER_REG:
-        UserRegPacket packet = _packetHandler.makeUserRegPacket(data);
-        pSender->write(registerNewUser(packet) ? "ok" : "error");
-        break;
+        {
+            UserRegPacket packet = _packetHandler.makeUserRegPacket(data);
+            pSender->write(registerNewUser(packet) ? "ok" : "error");
+            break;
+        }
+    case PacketHandler::USER_ADD_MESS:
+        {
+            UserAddMessPacket packet = _packetHandler.makeUserAddMessPacket(data);
+            pSender->write(sendMessage(packet) ? "ok" : "error");
+            break;
+        }
     }
 }
 

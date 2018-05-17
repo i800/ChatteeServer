@@ -20,6 +20,7 @@ private:
     Core(const Core&) = delete;
     Core& operator=(const Core&) = delete;
     bool registerNewUser(const UserRegPacket&);
+    bool sendMessage(const UserAddMessPacket&);
 public:
     Core();
     ~Core();
