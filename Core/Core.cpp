@@ -7,6 +7,7 @@
 #include <QTcpServer>
 #include <QTcpSocket>
 #include <QDebug>
+#include <cassert>
 
 Core::Core():
     _tcpServer(new QTcpServer())
@@ -45,19 +46,21 @@ bool Core::loginUser(const UserLogPacket& packet)
         : PassGenerator::getInstance().checkPass(passDesc, packet.pass());
 }
 
-bool Core::addChat(const UserAddChatPacket& packet)
+bool Core::addChat(const UserAddChatPacket&  packet, const QTcpSocket* sender)
 {
-    // TODO: change this
-    qint32 ida(1);
+    UserDescriptor* ud = find(sender);
+    assert(ud);
+    qint32 ida = _dao.getUserByUsername(ud->user()->username()).id();
     qint32 idb = _dao.getUserByUsername(packet.to()).id();
     Binding binding(ida, idb);
     return _dao.addBinding(binding);
 }
 
-bool Core::sendMessage(const UserAddMessPacket& packet)
+bool Core::sendMessage(const UserAddMessPacket&  packet, const QTcpSocket* sender)
 {
-    // TODO: change this
-    qint32 ida(1);
+    UserDescriptor* ud = find(sender);
+    assert(ud);
+    qint32 ida = _dao.getUserByUsername(ud->user()->username()).id();
     qint32 idb = _dao.getUserByUsername(packet.to()).id();
     Message message(ida, idb, packet.text(), ida, QDateTime::currentSecsSinceEpoch());
     return _dao.addMessage(message);
@@ -128,13 +131,13 @@ void Core::processMessage()
     case PacketHandler::USER_ADD_CHAT:
         {
             UserAddChatPacket packet = _packetHandler.makeUserAddChatPacket(data);
-            pSender->write(addChat(packet) ? "ok" : "error");
+            pSender->write(addChat(packet, pSender) ? "ok" : "error");
             break;
         }
     case PacketHandler::USER_ADD_MESS:
         {
             UserAddMessPacket packet = _packetHandler.makeUserAddMessPacket(data);
-            pSender->write(sendMessage(packet) ? "ok" : "error");
+            pSender->write(sendMessage(packet, pSender) ? "ok" : "error");
             break;
         }
     }

@@ -21,8 +21,8 @@ private:
     Core& operator=(const Core&) = delete;
     bool registerNewUser(const UserRegPacket&);
     bool loginUser(const UserLogPacket&);
-    bool addChat(const UserAddChatPacket&);
-    bool sendMessage(const UserAddMessPacket&);
+    bool addChat(const UserAddChatPacket& packet, const QTcpSocket* sender);
+    bool sendMessage(const UserAddMessPacket& packet, const QTcpSocket* sender);
     UserDescriptor* find(const QTcpSocket*);
 public:
     Core();
