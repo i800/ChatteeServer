@@ -38,12 +38,23 @@ bool Core::registerNewUser(const UserRegPacket& packet)
     return _dao.addUser(user);
 }
 
-bool Core::loginUser(const UserLogPacket& packet)
+bool Core::loginUser(const UserLogPacket& packet, const QTcpSocket* sender)
 {
     User user = _dao.getUserByUsername(packet.username());
     QPair<QString, QString> passDesc(user.pass(), user.hashkey());
-    return user.username() == "" ? false
-        : PassGenerator::getInstance().checkPass(passDesc, packet.pass());
+    if (user.username() == "")
+    {
+        return false;
+    }
+    else if (PassGenerator::getInstance().checkPass(passDesc, packet.pass()))
+    {
+        UserDescriptor* ud = find(sender);
+        assert(ud);
+        ud->user(&user);
+        return true;
+    }
+
+    return false;
 }
 
 bool Core::addChat(const UserAddChatPacket&  packet, const QTcpSocket* sender)
@@ -69,7 +80,8 @@ bool Core::sendMessage(const UserAddMessPacket&  packet, const QTcpSocket* sende
 QList<QString> Core::getChat(const UserGetChatPacket& packet, const QTcpSocket* sender)
 {
     UserDescriptor* ud = find(sender);
-    assert(ud && ud->user());
+    //assert(ud && ud->user());
+    return _dao.getMessagesBetwUsers(ud->user()->username(), packet.to());
 }
 
 void Core::start(const quint16 port)
@@ -132,7 +144,7 @@ void Core::processMessage()
     case PacketHandler::USER_LOG:
         {
             UserLogPacket packet = _packetHandler.makeUserLogPacket(data);
-            char* c = toCharArray(loginUser(packet));
+            char* c = toCharArray(loginUser(packet, pSender));
             pSender->write(c);
             pSender->flush();
             break;
@@ -150,6 +162,15 @@ void Core::processMessage()
             pSender->write(toCharArray(sendMessage(packet, pSender)));
             pSender->flush();
             break;
+        }
+    case PacketHandler::USER_GET_CHAT:
+        {
+            UserGetChatPacket packet = _packetHandler.makeUserGetChatPacket(data);
+            QByteArray arr;
+            QDataStream out(&arr, QIODevice::ReadWrite);
+            out << getChat(packet, pSender);
+            pSender->write(arr);
+            pSender->flush();
         }
     }
 }

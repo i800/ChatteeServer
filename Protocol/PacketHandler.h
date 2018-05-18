@@ -29,7 +29,7 @@ public:
     UserLogPacket makeUserLogPacket(QByteArray&);
     UserAddChatPacket makeUserAddChatPacket(QByteArray&);
     UserAddMessPacket makeUserAddMessPacket(QByteArray&);
-    UserAddChatPacket makeUserGetChatPacket(QByteArray&);
+    UserGetChatPacket makeUserGetChatPacket(QByteArray&);
     PacketMeta getPacketMeta(const QByteArray&);
     quint16 getPacketSize(const QByteArray&);
 };

@@ -20,7 +20,7 @@ private:
     Core(const Core&) = delete;
     Core& operator=(const Core&) = delete;
     bool registerNewUser(const UserRegPacket&);
-    bool loginUser(const UserLogPacket&);
+    bool loginUser(const UserLogPacket& packet, const QTcpSocket* sender);
     bool addChat(const UserAddChatPacket& packet, const QTcpSocket* sender);
     QList<QString> getChat(const UserGetChatPacket& packet, const QTcpSocket* sender);
     bool sendMessage(const UserAddMessPacket& packet, const QTcpSocket* sender);

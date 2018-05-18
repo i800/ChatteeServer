@@ -24,7 +24,7 @@ public:
     inline User* user() const { return _userData; }
 
     inline QTcpSocket* tcpSocket() { return _tcpSocket; }
-    inline User* user() { return _userData; }
+    inline void user(User* userData) { _userData = userData; }
 };
 
 #endif

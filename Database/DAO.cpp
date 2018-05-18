@@ -139,12 +139,12 @@ QList<QString> DAO
     QSqlQuery result = _maindb.exec(QString("SELECT text \
                                             FROM Messages INNER JOIN Users \
                                                  ON Messages.ida = Users.id \
-                                            WHERE username = 'dd' OR username = 'nn'")
+                                            WHERE username = '%1' OR username = '%2'")
                                     .arg(usr0, usr1));
     QList<QString> data;
     while (result.next())
     {
-        data.append(result.value(0));
+        data.append(result.value(0).toString());
     }
 
     return data;
