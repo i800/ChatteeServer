@@ -26,6 +26,7 @@ public:
     bool addBinding(const Binding&) const;
     bool addMessage(const Message&) const;
     User getUserByUsername(const QString&) const;
+    QList<QString> getMessagesBetwUsers(const QString& usr0, const QString& usr1) const;
     // TODO getMessages();
     // TODO getBindings();
 };

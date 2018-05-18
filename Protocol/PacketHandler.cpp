@@ -50,6 +50,13 @@ UserAddMessPacket PacketHandler::makeUserAddMessPacket(QByteArray& data)
     return packet;
 }
 
+UserGetChatPacket PacketHandler::makeUserGetChatPacket(QByteArray& data)
+{
+    UserGetChatPacket packet;
+    packet.load(data);
+    return packet;
+}
+
 PacketHandler::PacketMeta PacketHandler::getPacketMeta(const QByteArray& arr)
 {
     return (PacketMeta)(*arr.data());

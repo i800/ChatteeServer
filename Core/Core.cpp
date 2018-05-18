@@ -66,6 +66,12 @@ bool Core::sendMessage(const UserAddMessPacket&  packet, const QTcpSocket* sende
     return _dao.addMessage(message);
 }
 
+QList<QString> Core::getChat(const UserGetChatPacket& packet, const QTcpSocket* sender)
+{
+    UserDescriptor* ud = find(sender);
+    assert(ud && ud->user());
+}
+
 void Core::start(const quint16 port)
 {
     _dao.initDB();

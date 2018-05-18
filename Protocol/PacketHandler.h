@@ -4,6 +4,7 @@
 #include "Protocol/Packets/UserLogPacket.h"
 #include "Protocol/Packets/UserAddChatPacket.h"
 #include "Protocol/Packets/UserAddMessPacket.h"
+#include "Protocol/Packets/UserGetChatPacket.h"
 
 class PacketHandler : public QObject
 {
@@ -28,6 +29,7 @@ public:
     UserLogPacket makeUserLogPacket(QByteArray&);
     UserAddChatPacket makeUserAddChatPacket(QByteArray&);
     UserAddMessPacket makeUserAddMessPacket(QByteArray&);
+    UserAddChatPacket makeUserGetChatPacket(QByteArray&);
     PacketMeta getPacketMeta(const QByteArray&);
     quint16 getPacketSize(const QByteArray&);
 };
