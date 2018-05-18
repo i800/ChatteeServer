@@ -14,7 +14,7 @@ class Core : public QObject
     Q_OBJECT
 private:
     QTcpServer* _tcpServer;
-    QMap<quint32, UserDescriptor*> _clients;
+    QList<UserDescriptor*> _clients;
     DAO _dao;
     PacketHandler _packetHandler;
     Core(const Core&) = delete;
@@ -34,7 +34,5 @@ private slots:
     void processMessage();
     void onConnectionClosed();
 };
-
-quint32 generateUniqueSUID(const QList<quint32>&);
 
 #endif

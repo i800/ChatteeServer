@@ -7,7 +7,6 @@
 #include <QTcpServer>
 #include <QTcpSocket>
 #include <QDebug>
-#include <QTime>
 
 Core::Core():
     _tcpServer(new QTcpServer())
@@ -24,8 +23,7 @@ Core::~Core()
 #endif
     _tcpServer->close();
     delete _tcpServer;
-    QList<UserDescriptor*> toDelete = _clients.values();
-    qDeleteAll(toDelete.begin(), toDelete.end());
+    qDeleteAll(_clients.begin(), _clients.end());
 }
 
 bool Core::registerNewUser(const UserRegPacket& packet)
@@ -89,8 +87,8 @@ void Core::onNewConnection()
     connect(pSocket, &QTcpSocket::readyRead, this, &Core::processMessage);
     connect(pSocket, &QTcpSocket::disconnected, this, &Core::onConnectionClosed);
 
-    QList<quint32> presentSUIDs = _clients.keys();
-    _clients.insert(generateUniqueSUID(presentSUIDs), new UserDescriptor(pSocket));
+    _clients << new UserDescriptor(pSocket);
+
 #ifndef NDEBUG
     qDebug() << "A client connected";
 #endif
@@ -139,18 +137,5 @@ void Core::onConnectionClosed()
 #ifndef NDEBUG
     qDebug() << "A client disconnected";
 #endif
-}
-
-quint32 generateUniqueSUID(const QList<quint32>& presentSUIDs)
-{
-    qsrand(static_cast<quint64>(QTime::currentTime().msecsSinceStartOfDay()));
-    quint32 rSUID(0);
-
-    do
-    {
-        rSUID = quint32(qrand());
-    } while (presentSUIDs.contains(rSUID));
-
-    return rSUID;
 }
 
