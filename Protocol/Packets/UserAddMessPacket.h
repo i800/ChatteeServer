@@ -19,8 +19,8 @@ public:
     inline QString text() const { return _text; }
     inline QString to() const { return _to; }
 
-    QString& text() { return _text; }
-    QString& to() { return _to; }
+    inline QString& text() { return _text; }
+    inline QString& to() { return _to; }
 };
 
 #endif

@@ -29,6 +29,20 @@ UserRegPacket PacketHandler::makeUserRegPacket(QByteArray& data)
     return packet;
 }
 
+UserLogPacket PacketHandler::makeUserLogPacket(QByteArray& data)
+{
+    UserLogPacket packet;
+    packet.load(data);
+    return packet;
+}
+
+UserAddChatPacket PacketHandler::makeUserAddChatPacket(QByteArray& data)
+{
+    UserAddChatPacket packet;
+    packet.load(data);
+    return packet;
+}
+
 UserAddMessPacket PacketHandler::makeUserAddMessPacket(QByteArray& data)
 {
     UserAddMessPacket packet;

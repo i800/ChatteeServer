@@ -2,6 +2,7 @@
 #include "UserDescriptor.h"
 #include "Encryption/PassGenerator.h"
 #include "BusinessLayer/User.h"
+#include "BusinessLayer/Binding.h"
 #include "BusinessLayer/Message.h"
 #include <QTcpServer>
 #include <QTcpSocket>
@@ -38,10 +39,19 @@ bool Core::registerNewUser(const UserRegPacket& packet)
     return _dao.addUser(user);
 }
 
+bool Core::addChat(const UserAddChatPacket& packet)
+{
+    // TODO: change this
+    qint32 ida(1);
+    qint32 idb = _dao.getUserByUsername(packet.to()).id();
+    Binding binding(ida, idb);
+    return _dao.addBinding(binding);
+}
+
 bool Core::sendMessage(const UserAddMessPacket& packet)
 {
     // TODO: change this
-    quint32 ida(1);
+    qint32 ida(1);
     qint32 idb = _dao.getUserByUsername(packet.to()).id();
     Message message(ida, idb, packet.text(), ida, QDateTime::currentSecsSinceEpoch());
     return _dao.addMessage(message);
@@ -82,13 +92,18 @@ void Core::processMessage()
 {
     QTcpSocket* pSender = qobject_cast<QTcpSocket*>(sender());
     QByteArray data = pSender->readAll();
-    qDebug() << _packetHandler.getPacketMeta(data);
     switch (_packetHandler.getPacketMeta(data))
     {
     case PacketHandler::USER_REG:
         {
             UserRegPacket packet = _packetHandler.makeUserRegPacket(data);
             pSender->write(registerNewUser(packet) ? "ok" : "error");
+            break;
+        }
+    case PacketHandler::USER_ADD_CHAT:
+        {
+            UserAddChatPacket packet = _packetHandler.makeUserAddChatPacket(data);
+            pSender->write(addChat(packet) ? "ok" : "error");
             break;
         }
     case PacketHandler::USER_ADD_MESS:
