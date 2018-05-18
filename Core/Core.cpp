@@ -49,7 +49,7 @@ bool Core::loginUser(const UserLogPacket& packet)
 bool Core::addChat(const UserAddChatPacket&  packet, const QTcpSocket* sender)
 {
     UserDescriptor* ud = find(sender);
-    assert(ud);
+    if (!ud || !ud->user()) return false;
     qint32 ida = _dao.getUserByUsername(ud->user()->username()).id();
     qint32 idb = _dao.getUserByUsername(packet.to()).id();
     Binding binding(ida, idb);
@@ -59,7 +59,7 @@ bool Core::addChat(const UserAddChatPacket&  packet, const QTcpSocket* sender)
 bool Core::sendMessage(const UserAddMessPacket&  packet, const QTcpSocket* sender)
 {
     UserDescriptor* ud = find(sender);
-    assert(ud);
+    if (!ud || !ud->user()) return false;
     qint32 ida = _dao.getUserByUsername(ud->user()->username()).id();
     qint32 idb = _dao.getUserByUsername(packet.to()).id();
     Message message(ida, idb, packet.text(), ida, QDateTime::currentSecsSinceEpoch());
@@ -88,7 +88,7 @@ UserDescriptor* Core::find(const QTcpSocket* connection)
 {
     for (UserDescriptor* i : _clients)
     {
-        if (i->_tcpSocket == connection)
+        if (i->tcpSocket() == connection)
         {
             return i;
         }
@@ -148,7 +148,7 @@ void Core::onConnectionClosed()
     QTcpSocket* pClient = qobject_cast<QTcpSocket*>(sender());
     if (pClient)
     {
-        _clients.removeAll(find(sender()));
+        _clients.removeAll(find(pClient));
     }
 #ifndef NDEBUG
     qDebug() << "A client disconnected";

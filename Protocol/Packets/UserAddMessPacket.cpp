@@ -5,7 +5,7 @@
 UserAddMessPacket::UserAddMessPacket()
 {
 #ifndef NDEBUG
-    qDebug() << "A UserAddMess instance created";
+    qDebug() << "A UserAddMessPacket instance created";
 #endif
 }
 
@@ -14,7 +14,7 @@ UserAddMessPacket::UserAddMessPacket(const UserAddMessPacket& origin):
     _to(origin._to)
 {
 #ifndef NDEBUG
-    qDebug() << "A UserAddMess instance copied";
+    qDebug() << "A UserAddMessPacket instance copied";
 #endif
 }
 

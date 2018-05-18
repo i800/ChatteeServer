@@ -5,7 +5,7 @@
 UserAddChatPacket::UserAddChatPacket()
 {
 #ifndef NDEBUG
-    qDebug() << "A UserAddMess instance created";
+    qDebug() << "A UserAddChatPacket instance created";
 #endif
 }
 
