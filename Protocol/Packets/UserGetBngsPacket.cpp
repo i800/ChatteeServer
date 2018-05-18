@@ -9,7 +9,7 @@ UserGetBngsPacket::UserGetBngsPacket()
 #endif
 }
 
-UserGetBngsPacket::UserGetBngsPacket(const UserGetBngsPacket& origin)
+UserGetBngsPacket::UserGetBngsPacket(const UserGetBngsPacket&)
 {
 #ifndef NDEBUG
     qDebug() << "A UserGetBngsPacket instance copied";
@@ -28,7 +28,7 @@ QByteArray UserGetBngsPacket::specificDump() const
     return QByteArray();
 }
 
-void UserGetBngsPacket::specificLoad(QBuffer& buffer)
+void UserGetBngsPacket::specificLoad(QBuffer&)
 {
     return;
 }

@@ -23,7 +23,7 @@ private:
     bool loginUser(const UserLogPacket& packet, const QTcpSocket* sender);
     bool addChat(const UserAddChatPacket& packet, const QTcpSocket* sender);
     QList<QString> getChat(const UserGetChatPacket& packet, const QTcpSocket* sender);
-    QList<QString> getBindings(const UserGetBngsPacket& packet, const QTcpSocket* sender);
+    QList<QString> getBindings(const QTcpSocket* sender);
     bool sendMessage(const UserAddMessPacket& packet, const QTcpSocket* sender);
     UserDescriptor* find(const QTcpSocket*);
 public:

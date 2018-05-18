@@ -157,15 +157,15 @@ QList<QString> DAO::getUserBindings(const QString& username) const
                                             WHERE id IN (SELECT ida \
                                                          FROM Bindings INNER JOIN Users \
                                                               ON Bindings.idb = Users.id \
-                                                         WHERE username = 'dd') \
+                                                         WHERE username = '%1') \
                                             UNION \
                                             SELECT username \
                                             FROM Users \
                                             WHERE id IN (SELECT idb \
                                                          FROM Bindings INNER JOIN Users \
                                                               ON Bindings.ida = Users.id \
-                                                         WHERE username = 'dd')")
-                                    .args(username));
+                                                         WHERE username = '%1')")
+                                    .arg(username));
     QList<QString> data;
     while (result.next())
     {

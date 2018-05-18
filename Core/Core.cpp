@@ -84,7 +84,7 @@ QList<QString> Core::getChat(const UserGetChatPacket& packet, const QTcpSocket* 
     return _dao.getMessagesBetwUsers(ud->user()->username(), packet.to());
 }
 
-QList<QString> Core::getBindings(const UserGetBngsPacket& packet, const QTcpSocket* sender)
+QList<QString> Core::getBindings(const QTcpSocket* sender)
 {
     UserDescriptor* ud = find(sender);
     // assert(ud && ud->user());
@@ -176,6 +176,15 @@ void Core::processMessage()
             QByteArray arr;
             QDataStream out(&arr, QIODevice::ReadWrite);
             out << getChat(packet, pSender);
+            pSender->write(arr);
+            pSender->flush();
+        }
+    case PacketHandler::USER_GET_BNGS:
+        {
+            UserGetBngsPacket packet = _packetHandler.makeUserGetBngsPacket(data);
+            QByteArray arr;
+            QDataStream out(&arr, QIODevice::ReadWrite);
+            out << getBindings(pSender);
             pSender->write(arr);
             pSender->flush();
         }
