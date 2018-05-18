@@ -31,7 +31,8 @@ SOURCES += main.cpp \
     Protocol/Packets/UserAddMessPacket.cpp \
     Protocol/Packets/UserAddChatPacket.cpp \
     Protocol/Packets/UserLogPacket.cpp \
-    Protocol/Packets/UserGetChatPacket.cpp
+    Protocol/Packets/UserGetChatPacket.cpp \
+    Protocol/Packets/UserGetBngsPacket.cpp
     #Core/UserAgent.cpp
 
 HEADERS += \
@@ -50,7 +51,8 @@ HEADERS += \
     Protocol/Packets/UserAddMessPacket.h \
     Protocol/Packets/UserAddChatPacket.h \
     Protocol/Packets/UserLogPacket.h \
-    Protocol/Packets/UserGetChatPacket.h
+    Protocol/Packets/UserGetChatPacket.h \
+    Protocol/Packets/UserGetBngsPacket.h
     #Core/UserAgent.h
 
 DISTFILES += \

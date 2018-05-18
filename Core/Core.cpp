@@ -80,8 +80,15 @@ bool Core::sendMessage(const UserAddMessPacket&  packet, const QTcpSocket* sende
 QList<QString> Core::getChat(const UserGetChatPacket& packet, const QTcpSocket* sender)
 {
     UserDescriptor* ud = find(sender);
-    //assert(ud && ud->user());
+    // assert(ud && ud->user());
     return _dao.getMessagesBetwUsers(ud->user()->username(), packet.to());
+}
+
+QList<QString> Core::getBindings(const UserGetBngsPacket& packet, const QTcpSocket* sender)
+{
+    UserDescriptor* ud = find(sender);
+    // assert(ud && ud->user());
+    return _dao.getUserBindings(ud->user()->username());
 }
 
 void Core::start(const quint16 port)

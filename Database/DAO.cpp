@@ -149,3 +149,28 @@ QList<QString> DAO
 
     return data;
 }
+
+QList<QString> DAO::getUserBindings(const QString& username) const
+{
+    QSqlQuery result = _maindb.exec(QString("SELECT username \
+                                            FROM Users \
+                                            WHERE id IN (SELECT ida \
+                                                         FROM Bindings INNER JOIN Users \
+                                                              ON Bindings.idb = Users.id \
+                                                         WHERE username = 'dd') \
+                                            UNION \
+                                            SELECT username \
+                                            FROM Users \
+                                            WHERE id IN (SELECT idb \
+                                                         FROM Bindings INNER JOIN Users \
+                                                              ON Bindings.ida = Users.id \
+                                                         WHERE username = 'dd')")
+                                    .args(username));
+    QList<QString> data;
+    while (result.next())
+    {
+        data.append(result.value(0).toString());
+    }
+
+    return data;
+}

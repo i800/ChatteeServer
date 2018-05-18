@@ -57,6 +57,13 @@ UserGetChatPacket PacketHandler::makeUserGetChatPacket(QByteArray& data)
     return packet;
 }
 
+UserGetBngsPacket PacketHandler::makeUserGetBngsPacket(QByteArray& data)
+{
+    UserGetBngsPacket packet;
+    packet.load(data);
+    return packet;
+}
+
 PacketHandler::PacketMeta PacketHandler::getPacketMeta(const QByteArray& arr)
 {
     return (PacketMeta)(*arr.data());
