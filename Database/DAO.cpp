@@ -120,9 +120,15 @@ User DAO::getUserByUsername(const QString& username) const
                                              FROM Users \
                                              WHERE username = '%1'")
                               .arg(username));
-    assert(result.next());
-    return User(result.value(0).toString().toUInt(),
-                result.value(1).toString(), result.value(2).toString(),
-                result.value(3).toString(), result.value(4).toString(),
-                result.value(5).toString());
+    if (result.next())
+    {
+        return User(result.value(0).toString().toUInt(),
+                    result.value(1).toString(), result.value(2).toString(),
+                    result.value(3).toString(), result.value(4).toString(),
+                    result.value(5).toString());
+    }
+    else
+    {
+        return User();
+    }
 }

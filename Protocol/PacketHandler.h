@@ -17,7 +17,6 @@ public:
     {
         USER_REG,
         USER_LOG,
-        USER_OUT,
         USER_ADD_CHAT,
         USER_ADD_MESS
     };

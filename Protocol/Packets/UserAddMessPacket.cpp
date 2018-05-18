@@ -45,5 +45,5 @@ void UserAddMessPacket::specificLoad(QBuffer& buffer)
 
 char UserAddMessPacket::specificGetID() const
 {
-    return 4;
+    return 3;
 }

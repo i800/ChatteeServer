@@ -39,5 +39,5 @@ void UserAddChatPacket::specificLoad(QBuffer& buffer)
 
 char UserAddChatPacket::specificGetID() const
 {
-    return 3;
+    return 2;
 }

@@ -39,6 +39,14 @@ bool Core::registerNewUser(const UserRegPacket& packet)
     return _dao.addUser(user);
 }
 
+bool Core::loginUser(const UserLogPacket& packet)
+{
+    User user = _dao.getUserByUsername(packet.username());
+    QPair<QString, QString> passDesc(user.pass(), user.hashkey());
+    return user.username() == "" ? false
+        : PassGenerator::getInstance().checkPass(passDesc, packet.pass());
+}
+
 bool Core::addChat(const UserAddChatPacket& packet)
 {
     // TODO: change this
@@ -98,6 +106,12 @@ void Core::processMessage()
         {
             UserRegPacket packet = _packetHandler.makeUserRegPacket(data);
             pSender->write(registerNewUser(packet) ? "ok" : "error");
+            break;
+        }
+    case PacketHandler::USER_LOG:
+        {
+            UserLogPacket packet = _packetHandler.makeUserLogPacket(data);
+            pSender->write(loginUser(packet) ? "ok" : "error");
             break;
         }
     case PacketHandler::USER_ADD_CHAT:
