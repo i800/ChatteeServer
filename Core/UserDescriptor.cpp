@@ -55,3 +55,9 @@ void UserDescriptor::clearMemory() const
     delete _tcpSocket;
     delete _userData;
 }
+
+void UserDescriptor::setUser(const User& user)
+{
+    delete _userData;
+    _userData = new User(user);
+}

@@ -16,7 +16,6 @@ User::User(const qint64 id, const QString &username, const QString &bio,
 }
 
 User::User(const User& origin):
-    QObject(parent()),
     _id(origin._id),
     _username(origin._username),
     _bio(origin._bio),

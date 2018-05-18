@@ -50,7 +50,7 @@ bool Core::loginUser(const UserLogPacket& packet, const QTcpSocket* sender)
     {
         UserDescriptor* ud = find(sender);
         assert(ud);
-        ud->user(&user);
+        ud->setUser(user);
         return true;
     }
 
