@@ -81,6 +81,19 @@ void Core::start(const quint16 port)
     }
 }
 
+UserDescriptor* Core::find(const QTcpSocket* connection)
+{
+    for (UserDescriptor* i : _clients)
+    {
+        if (i->_tcpSocket == connection)
+        {
+            return i;
+        }
+    }
+
+    return 0;
+}
+
 void Core::onNewConnection()
 {
     QTcpSocket* pSocket = _tcpServer->nextPendingConnection();
@@ -132,7 +145,7 @@ void Core::onConnectionClosed()
     QTcpSocket* pClient = qobject_cast<QTcpSocket*>(sender());
     if (pClient)
     {
-        // TODO remove client
+        _clients.removeAll(find(sender()));
     }
 #ifndef NDEBUG
     qDebug() << "A client disconnected";

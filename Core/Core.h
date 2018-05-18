@@ -6,8 +6,8 @@
 #include "Protocol/PacketHandler.h"
 
 class QTcpServer;
+class QTcpSocket;
 class UserDescriptor;
-class UserRegPacket;
 
 class Core : public QObject
 {
@@ -23,6 +23,7 @@ private:
     bool loginUser(const UserLogPacket&);
     bool addChat(const UserAddChatPacket&);
     bool sendMessage(const UserAddMessPacket&);
+    UserDescriptor* find(const QTcpSocket*);
 public:
     Core();
     ~Core();
