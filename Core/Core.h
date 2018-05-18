@@ -36,4 +36,6 @@ private slots:
     void onConnectionClosed();
 };
 
+char* toCharArray(const bool);
+
 #endif

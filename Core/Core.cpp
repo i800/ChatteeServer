@@ -119,25 +119,30 @@ void Core::processMessage()
     case PacketHandler::USER_REG:
         {
             UserRegPacket packet = _packetHandler.makeUserRegPacket(data);
-            pSender->write(registerNewUser(packet) ? "ok" : "error");
+            pSender->write(toCharArray(registerNewUser(packet)));
+            pSender->flush();
             break;
         }
     case PacketHandler::USER_LOG:
         {
             UserLogPacket packet = _packetHandler.makeUserLogPacket(data);
-            pSender->write(loginUser(packet) ? "ok" : "error");
+            char* c = toCharArray(loginUser(packet));
+            pSender->write(c);
+            pSender->flush();
             break;
         }
     case PacketHandler::USER_ADD_CHAT:
         {
             UserAddChatPacket packet = _packetHandler.makeUserAddChatPacket(data);
-            pSender->write(addChat(packet, pSender) ? "ok" : "error");
+            pSender->write(toCharArray(addChat(packet, pSender)));
+            pSender->flush();
             break;
         }
     case PacketHandler::USER_ADD_MESS:
         {
             UserAddMessPacket packet = _packetHandler.makeUserAddMessPacket(data);
-            pSender->write(sendMessage(packet, pSender) ? "ok" : "error");
+            pSender->write(toCharArray(sendMessage(packet, pSender)));
+            pSender->flush();
             break;
         }
     }
@@ -155,3 +160,9 @@ void Core::onConnectionClosed()
 #endif
 }
 
+char* toCharArray(const bool value)
+{
+    char* arr = new char[1];
+    arr[0] = value ? (char)1 : (char)-1;
+    return arr;
+}
