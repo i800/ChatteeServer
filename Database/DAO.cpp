@@ -136,15 +136,24 @@ User DAO::getUserByUsername(const QString& username) const
 QList<QString> DAO
     ::getMessagesBetwUsers(const QString& usr0, const QString& usr1) const
 {
-    QSqlQuery result = _maindb.exec(QString("SELECT text \
+    QSqlQuery result = _maindb.exec(QString("SELECT username, v_when, text \
                                             FROM Messages INNER JOIN Users \
-                                                 ON Messages.ida = Users.id \
-                                            WHERE username = '%1' OR username = '%2'")
+                                                 ON Messages.v_from = Users.id \
+                                            WHERE ida IN (SELECT id \
+                                                          FROM Users \
+                                                          WHERE username = '%1' \
+                                                             OR username = '%2') \
+                                              AND idb IN (SELECT id \
+                                                          FROM Users \
+                                                          WHERE username = '%1' \
+                                                             OR username = '%2')")
                                     .arg(usr0, usr1));
     QList<QString> data;
     while (result.next())
     {
-        data.append(result.value(0).toString());
+        data.append(result.value(0).toString() + "["
+                  + result.value(1).toString() + "]\n"
+                  + result.value(2).toString());
     }
 
     return data;
