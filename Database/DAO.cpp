@@ -151,8 +151,8 @@ QList<QString> DAO
     QList<QString> data;
     while (result.next())
     {
-        data.append(result.value(0).toString() + "["
-                  + result.value(1).toString() + "]\n"
+        data.append(result.value(0).toString() + " ["
+                  + getTime(result.value(1).toString()) + "]\n"
                   + result.value(2).toString());
     }
 
@@ -182,4 +182,11 @@ QList<QString> DAO::getUserBindings(const QString& username) const
     }
 
     return data;
+}
+
+QString getTime(const QString& unixSecs)
+{
+    QDateTime dt = QDateTime::fromTime_t(unixSecs.toUInt());
+    QString textdate = dt.toString(Qt::TextDate);
+    return textdate;
 }

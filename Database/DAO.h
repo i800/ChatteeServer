@@ -32,4 +32,6 @@ public:
     // TODO getBindings();
 };
 
+QString getTime(const QString&);
+
 #endif
