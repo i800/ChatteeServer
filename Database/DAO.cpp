@@ -146,7 +146,8 @@ QList<QString> DAO
                                               AND idb IN (SELECT id \
                                                           FROM Users \
                                                           WHERE username = '%1' \
-                                                             OR username = '%2')")
+                                                             OR username = '%2') \
+                                            ORDER BY v_when")
                                     .arg(usr0, usr1));
     QList<QString> data;
     while (result.next())
